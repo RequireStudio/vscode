@@ -42,6 +42,7 @@
 
 .monaco-editor .mtkz {
 	display: inline-block;
+	text-align: center;
 }
 
 /* TODO@tokenization bootstrap fix */

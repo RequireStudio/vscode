@@ -106,6 +106,7 @@ export class IndentGuidesOverlay extends DynamicViewOverlay {
 	// --- end event handlers
 
 	public prepareRender(ctx: RenderingContext): void {
+		this._renderResult = null;
 		if (!this._bracketPairGuideOptions.indentation && this._bracketPairGuideOptions.bracketPairs === false) {
 			this._renderResult = null;
 			return;
