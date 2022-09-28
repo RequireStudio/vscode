@@ -159,7 +159,7 @@ class FontMeasurementsImpl extends Disposable {
 
 		const typicalHalfwidthCharacter = this._createRequest('n', CharWidthRequestType.Regular, all, monospace);
 		const typicalFullwidthCharacter = this._createRequest('\uff4d', CharWidthRequestType.Regular, all, null);
-		const space = this._createRequest(' ', CharWidthRequestType.Regular, all, monospace);
+		const space = this._createRequest('\u2003', CharWidthRequestType.Regular, all, monospace);// 调整为中文空格的宽度
 		const digit0 = this._createRequest('0', CharWidthRequestType.Regular, all, monospace);
 		const digit1 = this._createRequest('1', CharWidthRequestType.Regular, all, monospace);
 		const digit2 = this._createRequest('2', CharWidthRequestType.Regular, all, monospace);
