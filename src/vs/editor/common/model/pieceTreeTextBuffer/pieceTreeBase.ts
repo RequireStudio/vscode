@@ -12,6 +12,11 @@ import { Searcher, createFindMatch, isValidMatch } from 'vs/editor/common/model/
 
 // const lfRegex = new RegExp(/\r\n|\r|\n/g);
 export const AverageBufferSize = 65535;
+// 英文空格
+const spaceTab = String.fromCharCode(9);
+const spaceTabReg = new RegExp(spaceTab, 'g');
+// 中文全角空格
+const space12288 = String.fromCharCode(12288);
 
 export function createUintArray(arr: number[]): Uint32Array | Uint16Array {
 	let r;
@@ -462,8 +467,10 @@ export class PieceTreeBase {
 
 		const startPosition = this.nodeAt2(range.startLineNumber, range.startColumn);
 		const endPosition = this.nodeAt2(range.endLineNumber, range.endColumn);
+		// const value = this.getValueInRange2(startPosition, endPosition);
 
-		const value = this.getValueInRange2(startPosition, endPosition);
+		// tab替换为2各中文全角空格
+		const value = this.getValueInRange2(startPosition, endPosition).replace(spaceTabReg, space12288 + space12288);
 		if (eol) {
 			if (eol !== this._EOL || !this._EOLNormalized) {
 				return value.replace(/\r\n|\r|\n/g, eol);
