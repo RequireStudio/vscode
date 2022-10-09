@@ -107,55 +107,55 @@ export class IndentGuidesOverlay extends DynamicViewOverlay {
 
 	public prepareRender(ctx: RenderingContext): void {
 		this._renderResult = null;
-		// if (!this._bracketPairGuideOptions.indentation && this._bracketPairGuideOptions.bracketPairs === false) {
-		// 	this._renderResult = null;
-		// 	return;
-		// }
+		if (!this._bracketPairGuideOptions.indentation && this._bracketPairGuideOptions.bracketPairs === false) {
+			this._renderResult = null;
+			return;
+		}
 
-		// const visibleStartLineNumber = ctx.visibleRange.startLineNumber;
-		// const visibleEndLineNumber = ctx.visibleRange.endLineNumber;
-		// const scrollWidth = ctx.scrollWidth;
-		// const lineHeight = this._lineHeight;
+		const visibleStartLineNumber = ctx.visibleRange.startLineNumber;
+		const visibleEndLineNumber = ctx.visibleRange.endLineNumber;
+		const scrollWidth = ctx.scrollWidth;
+		const lineHeight = this._lineHeight;
 
-		// const activeCursorPosition = this._primaryPosition;
+		const activeCursorPosition = this._primaryPosition;
 
-		// const indents = this.getGuidesByLine(
-		// 	visibleStartLineNumber,
-		// 	visibleEndLineNumber,
-		// 	activeCursorPosition
-		// );
+		const indents = this.getGuidesByLine(
+			visibleStartLineNumber,
+			visibleEndLineNumber,
+			activeCursorPosition
+		);
 
-		// const output: string[] = [];
-		// for (let lineNumber = visibleStartLineNumber; lineNumber <= visibleEndLineNumber; lineNumber++) {
-		// 	const lineIndex = lineNumber - visibleStartLineNumber;
-		// 	const indent = indents[lineIndex];
-		// 	let result = '';
-		// 	const leftOffset = ctx.visibleRangeForPosition(new Position(lineNumber, 1))?.left ?? 0;
-		// 	for (const guide of indent) {
-		// 		const left =
-		// 			guide.column === -1
-		// 				? leftOffset + (guide.visibleColumn - 1) * this._spaceWidth
-		// 				: ctx.visibleRangeForPosition(
-		// 					new Position(lineNumber, guide.column)
-		// 				)!.left;
+		const output: string[] = [];
+		for (let lineNumber = visibleStartLineNumber; lineNumber <= visibleEndLineNumber; lineNumber++) {
+			const lineIndex = lineNumber - visibleStartLineNumber;
+			const indent = indents[lineIndex];
+			let result = '';
+			const leftOffset = ctx.visibleRangeForPosition(new Position(lineNumber, 1))?.left ?? 0;
+			for (const guide of indent) {
+				const left =
+					guide.column === -1
+						? leftOffset + (guide.visibleColumn - 1) * this._spaceWidth
+						: ctx.visibleRangeForPosition(
+							new Position(lineNumber, guide.column)
+						)!.left;
 
-		// 		if (left > scrollWidth || (this._maxIndentLeft > 0 && left > this._maxIndentLeft)) {
-		// 			break;
-		// 		}
+				if (left > scrollWidth || (this._maxIndentLeft > 0 && left > this._maxIndentLeft)) {
+					break;
+				}
 
-		// 		const className = guide.horizontalLine ? (guide.horizontalLine.top ? 'horizontal-top' : 'horizontal-bottom') : 'vertical';
+				const className = guide.horizontalLine ? (guide.horizontalLine.top ? 'horizontal-top' : 'horizontal-bottom') : 'vertical';
 
-		// 		const width = guide.horizontalLine
-		// 			? (ctx.visibleRangeForPosition(
-		// 				new Position(lineNumber, guide.horizontalLine.endColumn)
-		// 			)?.left ?? (left + this._spaceWidth)) - left
-		// 			: this._spaceWidth;
+				const width = guide.horizontalLine
+					? (ctx.visibleRangeForPosition(
+						new Position(lineNumber, guide.horizontalLine.endColumn)
+					)?.left ?? (left + this._spaceWidth)) - left
+					: this._spaceWidth;
 
-		// 		result += `<div class="core-guide ${guide.className} ${className}" style="left:${left}px;height:${lineHeight}px;width:${width}px"></div>`;
-		// 	}
-		// 	output[lineIndex] = result;
-		// }
-		// this._renderResult = output;
+				result += `<div class="core-guide ${guide.className} ${className}" style="left:${left}px;height:${lineHeight}px;width:${width}px"></div>`;
+			}
+			output[lineIndex] = result;
+		}
+		this._renderResult = output;
 	}
 
 	private getGuidesByLine(
