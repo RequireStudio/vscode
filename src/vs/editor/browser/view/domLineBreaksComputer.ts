@@ -224,7 +224,7 @@ function renderLine(lineContent: string, initialVisibleColumn: number, tabSize: 
 				charWidth = producedCharacters;
 				for (let space = 1; space <= producedCharacters; space++) {
 					if (space < producedCharacters) {
-						sb.write1(0x2003); // &emsp;
+						sb.write1(12288); // &emsp;
 					} else {
 						sb.appendASCII(CharCode.Space);
 					}

@@ -993,12 +993,12 @@ function _renderLine(input: ResolvedRenderLineInput, sb: StringBuilder): RenderL
 					charWidth = producedCharacters;
 
 					if (!canUseHalfwidthRightwardsArrow || charWidth > 1) {
-						sb.write1(0x2192); // RIGHTWARDS ARROW
+						sb.write1(12288); // 原为箭头，调整为中文空格
 					} else {
-						sb.write1(0xFFEB); // HALFWIDTH RIGHTWARDS ARROW
+						sb.write1(12288); // 原为箭头，调整为中文空格
 					}
 					for (let space = 2; space <= charWidth; space++) {
-						sb.write1(0x2003); // &emsp;
+						sb.write1(12288); // &emsp;
 					}
 
 				} else { // must be CharCode.Space
@@ -1033,12 +1033,12 @@ function _renderLine(input: ResolvedRenderLineInput, sb: StringBuilder): RenderL
 						producedCharacters = (tabSize - (visibleColumn % tabSize));
 						charWidth = producedCharacters;
 						for (let space = 1; space <= producedCharacters; space++) {
-							sb.write1(0x2003); // &emsp;
+							sb.write1(12288); // &emsp;
 						}
 						break;
 
 					case CharCode.Space:
-						sb.write1(0x2003); // &emsp;
+						sb.write1(12288); // &emsp;
 						break;
 
 					case CharCode.LessThan:
