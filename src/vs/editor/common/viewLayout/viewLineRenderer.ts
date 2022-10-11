@@ -1038,7 +1038,7 @@ function _renderLine(input: ResolvedRenderLineInput, sb: StringBuilder): RenderL
 						break;
 
 					case CharCode.Space:
-						sb.write1(12288); // &emsp;
+						sb.write1(0xA0); // &nbsp;
 						break;
 
 					case CharCode.LessThan:
