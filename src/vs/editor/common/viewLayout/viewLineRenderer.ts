@@ -916,8 +916,8 @@ function _renderLine(input: ResolvedRenderLineInput, sb: StringBuilder): RenderL
 	const tabSize = input.tabSize;
 	const startVisibleColumn = input.startVisibleColumn;
 	const containsRTL = input.containsRTL;
-	const spaceWidth = input.spaceWidth;
-	const renderSpaceCharCode = input.renderSpaceCharCode;
+	// const spaceWidth = input.spaceWidth;
+	// const renderSpaceCharCode = input.renderSpaceCharCode;
 	const renderWhitespace = input.renderWhitespace;
 	const renderControlCharacters = input.renderControlCharacters;
 
@@ -958,26 +958,26 @@ function _renderLine(input: ResolvedRenderLineInput, sb: StringBuilder): RenderL
 
 		if (partRendersWhitespace) {
 
-			let partWidth = 0;
-			{
-				let _charIndex = charIndex;
-				let _visibleColumn = visibleColumn;
+			// let partWidth = 0;
+			// {
+			// 	let _charIndex = charIndex;
+			// 	let _visibleColumn = visibleColumn;
 
-				for (; _charIndex < partEndIndex; _charIndex++) {
-					const charCode = lineContent.charCodeAt(_charIndex);
-					const charWidth = (charCode === CharCode.Tab ? (tabSize - (_visibleColumn % tabSize)) : 1) | 0;
-					partWidth += charWidth;
-					if (_charIndex >= fauxIndentLength) {
-						_visibleColumn += charWidth;
-					}
-				}
-			}
+			// 	for (; _charIndex < partEndIndex; _charIndex++) {
+			// 		const charCode = lineContent.charCodeAt(_charIndex);
+			// 		const charWidth = (charCode === CharCode.Tab ? (tabSize - (_visibleColumn % tabSize)) : 1) | 0;
+			// 		partWidth += charWidth;
+			// 		if (_charIndex >= fauxIndentLength) {
+			// 			_visibleColumn += charWidth;
+			// 		}
+			// 	}
+			// }
 
-			if (partRendersWhitespaceWithWidth) {
-				sb.appendASCIIString(' style="width:');
-				sb.appendASCIIString(String(spaceWidth * partWidth));
-				sb.appendASCIIString('px"');
-			}
+			// if (partRendersWhitespaceWithWidth) {
+			// 	sb.appendASCIIString(' style="width:');
+			// 	sb.appendASCIIString(String(spaceWidth * partWidth));
+			// 	sb.appendASCIIString('px"');
+			// }
 			sb.appendASCII(CharCode.GreaterThan);
 
 			for (; charIndex < partEndIndex; charIndex++) {
@@ -1004,9 +1004,9 @@ function _renderLine(input: ResolvedRenderLineInput, sb: StringBuilder): RenderL
 				} else { // must be CharCode.Space
 					producedCharacters = 2;
 					charWidth = 1;
-
-					sb.write1(renderSpaceCharCode); // &middot; or word separator middle dot
-					sb.write1(0x200C); // ZERO WIDTH NON-JOINER
+					// sb.write1(renderSpaceCharCode); // &middot; or word separator middle dot
+					// sb.write1(0x200C); // ZERO WIDTH NON-JOINER
+					sb.write1(0xA0); // &nbsp;
 				}
 
 				charOffsetInPart += producedCharacters;
